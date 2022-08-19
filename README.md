@@ -35,8 +35,11 @@ Descongelar los salmones dependiendo de la fecha de caducidad que depende del ti
 
 **WHILE** 0 < Ventas_esperados_por_día  -  Ventas_reales_del_día_anterior <  5
 Ventas_esperados_por_día = Ventas_esperados_por_día
+
 **IF NOT**
+
 **IF** 0 >  Ventas_esperados_por_día  -  Ventas_reales_del_día_anterior
    Ventas_esperados_por_día = Ventas_esperados_por_día + 2
+
 **ELSE	**
    Ventas_esperados_por_día = Ventas_esperados_por_día - 2
