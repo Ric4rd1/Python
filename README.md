@@ -15,11 +15,11 @@ El programa servirá para hacer un uso inteligente de los ingredientes, principa
 **DEFINIR VARIABLES**
 - Fecha_caducidad_salmón (días)  [número entero]
 - Ventas_sandwiches_últimas_semanas (n° sandwiches) [Lista]
-  Lunes 
- --Martes
- --Miércoles
- --Jueves
- Viernes
+Lunes 
+Martes
+Miércoles
+Jueves
+Viernes
 Sábado 
 - Ventas_esperados_por_día(n° sandwiches) [Lista]
 - Ventas_reales_del_día_anterior (n° sandwiches) [número entero]
