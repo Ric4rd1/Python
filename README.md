@@ -41,5 +41,5 @@ Ventas_esperados_por_día = Ventas_esperados_por_día
 **IF** 0 >  Ventas_esperados_por_día  -  Ventas_reales_del_día_anterior
    Ventas_esperados_por_día = Ventas_esperados_por_día + 2
 
-**ELSE	**
+**ELSE**
    Ventas_esperados_por_día = Ventas_esperados_por_día - 2
