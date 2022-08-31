@@ -1,9 +1,9 @@
-#Ricard Catalá Garfias - A01710071
+# Ricard Catalá Garfias - A01710071
 # Restaurante sandwiches de salmón
 
 ## Contexto: 
 
-En las últimas semanas los trabajadores de un restaurante donde venden principalmente sandwiches de salmón han experimentado un desperdicio de salmón ya que pasan su fecha de caducidad. La razón de esto es que se descongelan más salmones de los que se venden. El salmón tarda de 1-2 días en echarse a perder después de ser descongelado y es por esto que se necesita un programa que pueda ayudar en analizar cuando se deben de descongelar los salmones para evitar el desperdicio de estos. Otros ingredientes que se tomarán en cuenta también son el pan y la lechuga.
+En las últimas semanas los trabajadores de un restaurante donde venden principalmente sandwiches de salmón han experimentado un desperdicio de salmón ya que pasan su fecha de caducidad. La razón de esto es que se descongelan más salmones de los que se venden. El salmón tarda de 1-2 días en echarse a perder después de ser descongelado y es por esto que se necesita un programa que pueda ayudar en analizar cuando se deben de descongelar los salmones para evitar el desperdicio de estos, esto con base a las ventas anteriores.
 
 El programa servirá para hacer un uso inteligente de los ingredientes, principalmente salmón. Además de esto el programa va a ser capaz de analizar las ganancias, y buscar los días más oportunos para hacer promociones y subir las ventas del establecimiento.
 
