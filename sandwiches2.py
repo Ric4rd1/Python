@@ -9,7 +9,6 @@ Algoritmo:
 3.-Sumar de las ventas en cada día de la semana y dividirlo para obtener el promedio de
 ventas de cada día
 4.-Mostrar el resultado
-
 """
 #Importar librerias
 import random
@@ -23,18 +22,20 @@ lista_ventas = np.random.randint(5, 15, size=(4, 7))
 calendario = (f"""Calendario:
    L  M  M  J  V  S  D
 {lista_ventas}
-
    ------------------------""")
 print(calendario)
 #Crear el menu
 def menu ():
-    tprint("  MENU", font = "small")
+    tprint("""  MENU""", font = "small")
     print(
-""" [1] Registro día anterior
- [2] Salmones por desconjelar
- [3] Consultar promedio de ventas de sandwiches
- [4] Mostrar calendario de ventas
- [5] Salir
+"""- - - - - - - - - - - - - - - - - - - - - - - 
+| [1] Registro día anterior                      |
+| [2] Salmones por desconjelar                   |
+| [3] Consultar promedio de ventas de sandwiches |
+| [4] Mostrar calendario de ventas               |
+| [5] Graficar                                   |
+| [6] Salir                                      |
+   - - - - - - - - - - - - - - - - - - - - - - - 
 """)
 
 
@@ -48,9 +49,12 @@ def totales_semana():
     semana_2 = (sum(list(lista_ventas[1,:])))
     semana_3 = (sum(list(lista_ventas[2,:])))
     semana_4 = (sum(list(lista_ventas[3,:])))
-#salmones del mes
-#mes = semana_1 + semana_2 + semana_3 + semana_4
+    return [semana_1, semana_2, semana_3, semana_4]
 
+#salmones del mes
+#mes = totales_semana()
+#print(type(mes))
+#print(mes)
 #Definir la función para obtener el promedio de ventas en cualquier día
 def promedio (dia):
     if dia == "lunes":
@@ -81,7 +85,7 @@ def promedio (dia):
 #ejecutar el menu
 menu()
 opcion =  int(input("Elige una opcion: "))
-while opcion != 5:
+while opcion != 6:
     if opcion == 1:
         pass
     elif opcion == 2:
@@ -93,7 +97,8 @@ while opcion != 5:
     elif opcion == 4:
         print(calendario)
     elif opcion == 5:
-        pass
+        plt.hist(lista_ventas, bins = 7)
+        plt.show()
     else:
         print("opción no valida")
     
