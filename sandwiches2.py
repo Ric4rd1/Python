@@ -9,6 +9,7 @@ Algoritmo:
 3.-Sumar de las ventas en cada día de la semana y dividirlo para obtener el promedio de
 ventas de cada día
 4.-Mostrar el resultado
+
 """
 #Importar librerias
 import random
