@@ -15,6 +15,7 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 from art import tprint
+import pandas as pd
 
 #Crear una lista random para las ventas de sandwiches en un mes
 #Se crea una matriz de 4x7
@@ -52,9 +53,15 @@ def totales_semana():
     return [semana_1, semana_2, semana_3, semana_4]
 
 #salmones del mes
-#mes = totales_semana()
-#print(type(mes))
-#print(mes)
+mes = totales_semana()
+
+#pandas table
+def table ():
+    titled_column = {"Ventas": mes}
+    data = pd.DataFrame(titled_column)
+    data.index = ["semana 1", "semana 2", "semana 3", "semana 4"] 
+    print(data)
+
 #Definir la función para obtener el promedio de ventas en cualquier día
 def promedio (dia):
     if dia == "lunes":
@@ -96,6 +103,7 @@ while opcion != 6:
         print(f"El promedio es: {promedio(dia_input)} sandwiches")
     elif opcion == 4:
         print(calendario)
+        table()
     elif opcion == 5:
         plt.hist(lista_ventas, bins = 7)
         plt.show()
@@ -106,9 +114,6 @@ while opcion != 6:
     opcion =  int(input("Elige una opcion: "))
 print("Gracias por usar el programa")
 
-
-
-#Print el resultado
 
 
 #plt.hist(lista_ventas, bins = 7)
