@@ -11,7 +11,7 @@ ventas de cada día
 4.-Mostrar el resultado
 """
 #Importar librerias
-import random
+
 import numpy as np
 import matplotlib.pyplot as plt
 from art import tprint
@@ -30,7 +30,7 @@ def menu ():
     tprint("""  MENU""", font = "small")
     print(
 """- - - - - - - - - - - - - - - - - - - - - - - 
-| [1] Registro día anterior                      |
+| [1] Registro semana anterior                   |
 | [2] Salmones por desconjelar                   |
 | [3] Consultar promedio de ventas de sandwiches |
 | [4] Mostrar calendario de ventas               |
@@ -57,10 +57,73 @@ mes = totales_semana()
 
 #pandas table
 def table ():
-    titled_column = {"Ventas": mes}
+    titled_column = {"Ventas": mes,
+                     "Promedio semana": [[mes[0]/7], [mes[1]/7], [mes[2]/7], [mes[3]/7]]}
     data = pd.DataFrame(titled_column)
     data.index = ["semana 1", "semana 2", "semana 3", "semana 4"] 
     print(data)
+
+# Diccionario reporte de la nueva semana 
+def reporte():
+    global reporte_semana_dict
+    lun = input("Ventas del lunes: ")
+    mar = input("Venas del martes: ")
+    mie = input("Venas del miércoles: ")
+    jue = input("Venas del jueves: ")
+    vie = input("Venas del viernes: ")
+    sab = input("Venas del sábado: ")
+    dom = input("Venas del domingo: ")
+
+    reporte_semana_dict = dict.fromkeys(["lunes", 
+                                    "martes", 
+                                    "miercoles",
+                                    "jueves", 
+                                    "viernes", 
+                                    "sabado", 
+                                    "domingo"])
+    
+    reporte_semana_dict["lunes"] = lun
+    reporte_semana_dict["martes"] = mar
+    reporte_semana_dict["miercoles"] = mie
+    reporte_semana_dict["jueves"] = jue
+    reporte_semana_dict["viernes"] = vie
+    reporte_semana_dict["sabado"] = sab
+    reporte_semana_dict["domingo"] = dom
+    return reporte_semana_dict
+    
+# Diccionario de totale de ventas por dia del mes anterior
+def reporte_mes():
+    global reporte_mes_dict 
+    reporte_mes_dict = dict.fromkeys(["lunes", 
+                                 "martes", 
+                                 "miercoles",
+                                 "jueves", 
+                                 "viernes", 
+                                 "sabado", 
+                                 "domingo"])
+    reporte_mes_dict["lunes"] = float((np.sum(lista_ventas[:,0]))/4)
+    reporte_mes_dict["martes"] = float((np.sum(lista_ventas[:,1]))/4)
+    reporte_mes_dict["miercoles"] = float((np.sum(lista_ventas[:,2]))/4)
+    reporte_mes_dict["jueves"] = float((np.sum(lista_ventas[:,3]))/4)
+    reporte_mes_dict["viernes"] = float((np.sum(lista_ventas[:,4]))/4)
+    reporte_mes_dict["sabado"] = float((np.sum(lista_ventas[:,5]))/4)
+    reporte_mes_dict["domingo"] = float((np.sum(lista_ventas[:,6]))/4)
+    print(reporte_mes_dict)
+    return reporte_mes_dict
+    
+
+#Buscar el nuevo promedio
+def nuevo_reporte(): 
+    reporte_mes_values = reporte_mes_dict.values()
+    reporte_semana_values = reporte_semana_dict.values()
+    np_reporte_mes_values = np.array(reporte_mes_values)
+    np_reporte_semana_values = np.array(reporte_semana_values)
+    update_reporte = (np_reporte_mes_values + np_reporte_semana_values)/2
+    print(update_reporte)
+    return update_reporte 
+
+    
+    
 
 #Definir la función para obtener el promedio de ventas en cualquier día
 def promedio (dia):
@@ -94,9 +157,9 @@ menu()
 opcion =  int(input("Elige una opcion: "))
 while opcion != 6:
     if opcion == 1:
-        pass
+        reporte()
     elif opcion == 2:
-        pass
+        nuevo_reporte()
     elif opcion == 3:
         totales_semana()
         dia_input = str(input("Escriba el día de la semana que requiera el promedio de ventas: "))
@@ -105,8 +168,8 @@ while opcion != 6:
         print(calendario)
         table()
     elif opcion == 5:
-        plt.hist(lista_ventas, bins = 7)
-        plt.show()
+            plt.hist(lista_ventas, bins = 7)
+            plt.show()
     else:
         print("opción no valida")
     
