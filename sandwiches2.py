@@ -56,7 +56,7 @@ def totales_semana():
 mes = totales_semana()
 
 #pandas table
-def table ():
+def table_calendario ():
     titled_column = {"Ventas": mes,
                      "Promedio semana": [[mes[0]/7], [mes[1]/7], [mes[2]/7], [mes[3]/7]]}
     data = pd.DataFrame(titled_column)
@@ -64,15 +64,15 @@ def table ():
     print(data)
 
 # Diccionario reporte de la nueva semana 
-def reporte():
+def reporte_semana():
     global reporte_semana_dict
-    lun = input("Ventas del lunes: ")
-    mar = input("Venas del martes: ")
-    mie = input("Venas del miércoles: ")
-    jue = input("Venas del jueves: ")
-    vie = input("Venas del viernes: ")
-    sab = input("Venas del sábado: ")
-    dom = input("Venas del domingo: ")
+    lun = int(input("Ventas del lunes: "))
+    mar = int(input("Venas del martes: "))
+    mie = int(input("Venas del miércoles: "))
+    jue = int(input("Venas del jueves: "))
+    vie = int(input("Venas del viernes: "))
+    sab = int(input("Venas del sábado: "))
+    dom = int(input("Venas del domingo: "))
 
     reporte_semana_dict = dict.fromkeys(["lunes", 
                                     "martes", 
@@ -108,20 +108,28 @@ def reporte_mes():
     reporte_mes_dict["viernes"] = float((np.sum(lista_ventas[:,4]))/4)
     reporte_mes_dict["sabado"] = float((np.sum(lista_ventas[:,5]))/4)
     reporte_mes_dict["domingo"] = float((np.sum(lista_ventas[:,6]))/4)
-    print(reporte_mes_dict)
+    
     return reporte_mes_dict
     
 
 #Buscar el nuevo promedio
 def nuevo_reporte(): 
-    reporte_mes_values = reporte_mes_dict.values()
-    reporte_semana_values = reporte_semana_dict.values()
+    reporte_mes()
+    reporte_semana()
+    reporte_mes_values = list(reporte_mes_dict.values())
+    reporte_semana_values = list(reporte_semana_dict.values())
     np_reporte_mes_values = np.array(reporte_mes_values)
     np_reporte_semana_values = np.array(reporte_semana_values)
-    update_reporte = (np_reporte_mes_values + np_reporte_semana_values)/2
-    print(update_reporte)
+    update_reporte = ((np_reporte_mes_values) + (np_reporte_semana_values))/2
     return update_reporte 
 
+#tabla del registro 
+def table_registro():
+    lista_update = nuevo_reporte()
+    columna = {
+        "Lunes": lista_update[0]
+    }
+    print(columna)
     
     
 
@@ -157,16 +165,16 @@ menu()
 opcion =  int(input("Elige una opcion: "))
 while opcion != 6:
     if opcion == 1:
-        reporte()
+        table_registro()
     elif opcion == 2:
-        nuevo_reporte()
+        pass
     elif opcion == 3:
         totales_semana()
         dia_input = str(input("Escriba el día de la semana que requiera el promedio de ventas: "))
         print(f"El promedio es: {promedio(dia_input)} sandwiches")
     elif opcion == 4:
         print(calendario)
-        table()
+        table_calendario()
     elif opcion == 5:
             plt.hist(lista_ventas, bins = 7)
             plt.show()
