@@ -42,17 +42,11 @@ def menu ():
 
 #Salmones por comprar para la semana
 def totales_semana():
-    global semana_1
-    global semana_2
-    global semana_3
-    global semana_4
     semana_1 = (sum(list(lista_ventas[0,:])))
     semana_2 = (sum(list(lista_ventas[1,:])))
     semana_3 = (sum(list(lista_ventas[2,:])))
     semana_4 = (sum(list(lista_ventas[3,:])))
     return [semana_1, semana_2, semana_3, semana_4]
-
-#salmones del mes
 mes = totales_semana()
 
 #pandas table
@@ -123,13 +117,19 @@ def nuevo_reporte():
     update_reporte = ((np_reporte_mes_values) + (np_reporte_semana_values))/2
     return update_reporte 
 
-#tabla del registro 
+#tabla del promedio acutalizado
 def table_registro():
     lista_update = nuevo_reporte()
     columna = {
-        "Lunes": lista_update[0]
+        "Lunes": lista_update[0],
+        "Martes": lista_update[1],
+        "Miércoles": lista_update[2],
+        "Jueves": lista_update[3],
+        "Viernes": lista_update[4],
+        "Sábado": lista_update[5],
+        "Domingo": lista_update[6]
     }
-    print(columna)
+    return columna
     
     
 
@@ -171,7 +171,7 @@ while opcion != 6:
     elif opcion == 3:
         totales_semana()
         dia_input = str(input("Escriba el día de la semana que requiera el promedio de ventas: "))
-        print(f"El promedio es: {promedio(dia_input)} sandwiches")
+        print(f"El promedio del {dia_input} es: {promedio(dia_input)} sandwiches")
     elif opcion == 4:
         print(calendario)
         table_calendario()
