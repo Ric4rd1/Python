@@ -26,21 +26,18 @@ Sábado
 - Ventas_reales_del_día_anterior (n° sandwiches) [número entero]
 
 
-**PROMEDIO** ventas previas
-Hacer un promedio de Ventas sandwiches últimas semanas por cada día  
-y de ahí calcular Ventas_esperados_por_día.
+**Registro Semana Anterior** ventas previas
+Se crea una lista nueva de valores que se piden al usuario y se promedian con los datos anteriores del calendario.
 
-Descongelar los salmones dependiendo de la fecha de caducidad que depende del tiempo de transporte
+**Salmones por desconjelar**
+Calucula la diferencia entre la predicion de ventas del dia que se pida y los salmones desconjelados del día anterior para poder regresar el número de salmones que se necesitan desconjelar para ese día.
 
-**INPUT** Ventas_reales_del_día_anterior
+**Consultar ventas** 
+Crea una tabla de la libreria pandas en donde se despliegan las ventas de las semanas anteriores y el promedio de venta de estas. Además se pueden consultar los promedios de ventas por dias de la semana con base a los datos anteriores.
 
-**WHILE** 0 < Ventas_esperados_por_día  -  Ventas_reales_del_día_anterior <  5
-Ventas_esperados_por_día = Ventas_esperados_por_día
+**Graficar**
+Se grafican los promedios de ventas por día 
 
-**IF NOT**
+**Mejor día para aplicar ofertas** 
+Calcula el mejor día para aplicar ofertas
 
-**IF** 0 >  Ventas_esperados_por_día  -  Ventas_reales_del_día_anterior
-   Ventas_esperados_por_día = Ventas_esperados_por_día + 2
-
-**ELSE**
-   Ventas_esperados_por_día = Ventas_esperados_por_día - 2
