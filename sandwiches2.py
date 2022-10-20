@@ -1,74 +1,56 @@
-"""
-algoritmo para encontrar el numero promedio de sandwiches vendidos por días en un mes.
-Estado inicial:
-lista ventas = generada aleatoreamente
-dia = input (string)
-Algoritmo:
-1.-Crear la matriz aleatoriamente de las ventas de sandwiches
-2.-Pedir el día que se requiere para el promedio
-3.-Sumar de las ventas en cada día de la semana y dividirlo para obtener el promedio de
-ventas de cada día
-4.-Mostrar el resultado
-"""
 #Importar librerias
-
 import numpy as np
 import matplotlib.pyplot as plt
 from art import tprint
 import pandas as pd
+import os
+clear = lambda: os.system('cls')
+clear()
 
+###################################################
 #Crear una lista random para las ventas de sandwiches en un mes
 #Se crea una matriz de 4x7
 lista_ventas = np.random.randint(5, 15, size=(4, 7))
-calendario = (f"""Calendario:
+
+#Crear el menu
+def texto():
+    global lista_ventas
+    calendario = (f"""Calendario:
    L  M  M  J  V  S  D
 {lista_ventas}
-   ------------------------""")
-print(calendario)
-#Crear el menu
-def menu ():
+   """)
+    print(calendario)
+
+    print("- - - - - - - - - - - - - - - - - - - - - - ")
     tprint("""  MENU""", font = "small")
     print(
 """- - - - - - - - - - - - - - - - - - - - - - - 
 | [1] Registro semana anterior                   |
 | [2] Salmones por desconjelar                   |
-| [3] Consultar promedio de ventas de sandwiches |
-| [4] Mostrar calendario de ventas               |
-| [5] Graficar                                   |
+| [3] Consultar ventas                           |
+| [4] Graficar                                   |
+| [5] Mejor día para aplicar una oferta          |
 | [6] Salir                                      |
    - - - - - - - - - - - - - - - - - - - - - - - 
 """)
-
-
-#Salmones por comprar para la semana
-def totales_semana():
-    semana_1 = (sum(list(lista_ventas[0,:])))
-    semana_2 = (sum(list(lista_ventas[1,:])))
-    semana_3 = (sum(list(lista_ventas[2,:])))
-    semana_4 = (sum(list(lista_ventas[3,:])))
-    return [semana_1, semana_2, semana_3, semana_4]
-mes = totales_semana()
-
-#pandas table
-def table_calendario ():
-    titled_column = {"Ventas": mes,
-                     "Promedio semana": [[mes[0]/7], [mes[1]/7], [mes[2]/7], [mes[3]/7]]}
-    data = pd.DataFrame(titled_column)
-    data.index = ["semana 1", "semana 2", "semana 3", "semana 4"] 
-    print(data)
+#print calendario
+calendario = (f"""Calendario:
+   L  M  M  J  V  S  D
+{lista_ventas}
+   """)
+#--------------OPCIÓN 1--------------------------------
 
 # Diccionario reporte de la nueva semana 
-def reporte_semana():
-    global reporte_semana_dict
+def registro_semana():
     lun = int(input("Ventas del lunes: "))
-    mar = int(input("Venas del martes: "))
-    mie = int(input("Venas del miércoles: "))
-    jue = int(input("Venas del jueves: "))
-    vie = int(input("Venas del viernes: "))
-    sab = int(input("Venas del sábado: "))
-    dom = int(input("Venas del domingo: "))
+    mar = int(input("Ventas del martes: "))
+    mie = int(input("Ventas del miércoles: "))
+    jue = int(input("Ventas del jueves: "))
+    vie = int(input("Ventas del viernes: "))
+    sab = int(input("Ventas del sábado: "))
+    dom = int(input("Ventas del domingo: "))
 
-    reporte_semana_dict = dict.fromkeys(["lunes", 
+    registro_semana_dict = dict.fromkeys(["lunes", 
                                     "martes", 
                                     "miercoles",
                                     "jueves", 
@@ -76,16 +58,19 @@ def reporte_semana():
                                     "sabado", 
                                     "domingo"])
     
-    reporte_semana_dict["lunes"] = lun
-    reporte_semana_dict["martes"] = mar
-    reporte_semana_dict["miercoles"] = mie
-    reporte_semana_dict["jueves"] = jue
-    reporte_semana_dict["viernes"] = vie
-    reporte_semana_dict["sabado"] = sab
-    reporte_semana_dict["domingo"] = dom
-    return reporte_semana_dict
+    registro_semana_dict["lunes"] = lun
+    registro_semana_dict["martes"] = mar
+    registro_semana_dict["miercoles"] = mie
+    registro_semana_dict["jueves"] = jue
+    registro_semana_dict["viernes"] = vie
+    registro_semana_dict["sabado"] = sab
+    registro_semana_dict["domingo"] = dom
     
-# Diccionario de totale de ventas por dia del mes anterior
+    return registro_semana_dict
+
+#registro_semana_dict  = registro_semana()
+
+#--------------OPCIÓN 2--------------------------------
 def reporte_mes():
     global reporte_mes_dict 
     reporte_mes_dict = dict.fromkeys(["lunes", 
@@ -104,36 +89,48 @@ def reporte_mes():
     reporte_mes_dict["domingo"] = float((np.sum(lista_ventas[:,6]))/4)
     
     return reporte_mes_dict
-    
 
-#Buscar el nuevo promedio
 def nuevo_reporte(): 
     reporte_mes()
-    reporte_semana()
+    registro_semana_dict = registro_semana()
     reporte_mes_values = list(reporte_mes_dict.values())
-    reporte_semana_values = list(reporte_semana_dict.values())
+    reporte_semana_values = list(registro_semana_dict.values())
     np_reporte_mes_values = np.array(reporte_mes_values)
     np_reporte_semana_values = np.array(reporte_semana_values)
     update_reporte = ((np_reporte_mes_values) + (np_reporte_semana_values))/2
+    
     return update_reporte 
 
-#tabla del promedio acutalizado
-def table_registro():
-    lista_update = nuevo_reporte()
-    columna = {
-        "Lunes": lista_update[0],
-        "Martes": lista_update[1],
-        "Miércoles": lista_update[2],
-        "Jueves": lista_update[3],
-        "Viernes": lista_update[4],
-        "Sábado": lista_update[5],
-        "Domingo": lista_update[6]
-    }
-    return columna
-    
-    
+#--------------OPCIÓN 3--------------------------------
+#Salmones por desconjelar
+def por_desconjelar():
+    dia = str(input("Ingrese el día de hoy: "))
+    while dia not in ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"]:
+        dia = str(input("Ingrese un día correcto: "))
+    promedio_xdia = promedio(dia)
+    sobra = int(input("¿Cuántos salmones desconjelados hay?: "))
+    por_desconjelar = promedio_xdia-sobra
+    return por_desconjelar
+#--------------OPCIÓN 4--------------------------------
+#Salmones vendidos por semana
+def totales_semana():
+    semana_1 = (sum(list(lista_ventas[0,:])))
+    semana_2 = (sum(list(lista_ventas[1,:])))
+    semana_3 = (sum(list(lista_ventas[2,:])))
+    semana_4 = (sum(list(lista_ventas[3,:])))
+    mes = [semana_1, semana_2, semana_3, semana_4]
+    return mes
 
-#Definir la función para obtener el promedio de ventas en cualquier día
+#Tabla ventas por semana
+def table_ventas ():
+    mes = totales_semana()
+    titled_column = {"Ventas": mes,
+                     "     Promedio semana": [[mes[0]//7], [mes[1]//7], [mes[2]//7], [mes[3]//7]]}
+    data = pd.DataFrame(titled_column)
+    data.index = ["semana 1", "semana 2", "semana 3", "semana 4"] 
+    print(data)
+
+#promedio por dia 
 def promedio (dia):
     if dia == "lunes":
         ventas_promedio = float((np.sum(lista_ventas[:,0]))/4)
@@ -157,36 +154,75 @@ def promedio (dia):
         ventas_promedio = float((np.sum(lista_ventas[:,6]))/4)
         return ventas_promedio
 
-#Salmones por comprar en el mes
-#print(f"Los salmones que se compran al mes son: {mes}")
+#--------------MENU--------------------------------
 
-#ejecutar el menu
-menu()
+texto()
+print("")
 opcion =  int(input("Elige una opcion: "))
 while opcion != 6:
+    
     if opcion == 1:
-        table_registro()
+            nuevo_reporte = list(nuevo_reporte())
+            u = {"lunes":nuevo_reporte[0],
+                  "martes":nuevo_reporte[1],
+                  "miercoles":nuevo_reporte[2],
+                  "jueves":nuevo_reporte[3],
+                  "viernes":nuevo_reporte[4],
+                  "sabado":nuevo_reporte[5],
+                  "domingo":nuevo_reporte[6]
+                  }
+            datau = pd.DataFrame(u, index=[0])
+            print("")
+            print("El nuevo promedio por dia es: ")
+            print("")
+            print(datau)
+            print("")
     elif opcion == 2:
-        update_reporte = nuevo_reporte()
-        print(update_reporte)
+        print(f"Los salmones por desconjelar calculados son: {por_desconjelar()}")
     elif opcion == 3:
-        totales_semana()
-        dia_input = str(input("Escriba el día de la semana que requiera el promedio de ventas: "))
-        print(f"El promedio del {dia_input} es: {promedio(dia_input)} sandwiches")
+        table_ventas()
+        print("")
+        ask = str(input("¿Quiere consultar el promedio por día? si-->[s]  no-->[n]: "))
+    
+        if ask == "n" or "s":
+            while ask == "s":
+                dia_input = str(input("Escriba el día de la semana que requiera el promedio de ventas: "))
+                print(f"El promedio del {dia_input} es: {promedio(dia_input)} sandwiches")
+                ask = str(input("¿Quiere consultar el promedio de otro día? si-->[s]  no-->[n]"))
+        else:
+            print("Ingrese un valor correcto")
+            ask = str(input("¿Quiere consultar el promedio por día? si-->[s]  no-->[n]"))
+        
     elif opcion == 4:
-        print(calendario)
-        table_calendario()
-    elif opcion == 5:
-            plt.hist(lista_ventas, bins = 7)
+            ax= plt.plot(["lunes", "martes", "miercoles","jueves", "viernes", "sabado", "domingo"], nuevo_reporte )
             plt.show()
+
+    elif opcion == 5:
+        
+        minimo = min(nuevo_reporte)
+        print("************************************************")
+        for i in range(len(nuevo_reporte)):
+            if nuevo_reporte[i] == minimo:
+                if i == 0:
+                    print("El día mejor para aplicar una ofreta es el lunes")
+                elif i == 1:
+                    print("El día mejor para aplicar una ofreta es el martes")
+                elif i == 2:
+                    print("El día mejor para aplicar una ofreta es el miercoles")
+                elif i == 3:
+                    print("El día mejor para aplicar una ofreta es el jueves")
+                elif i == 4:
+                    print("El día mejor para aplicar una ofreta es el viernes")
+                elif i == 5:
+                    print("El día mejor para aplicar una ofreta es el sabado")
+                elif i == 6:
+                    print("El día mejor para aplicar una ofreta es el domingo")
+        print("************************************************")
+        print("")
     else:
         print("opción no valida")
     
-    menu()
+    texto()
     opcion =  int(input("Elige una opcion: "))
+    clear()
 print("Gracias por usar el programa")
-
-
-
-#plt.hist(lista_ventas, bins = 7)
-#plt.show()
