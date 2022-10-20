@@ -167,7 +167,8 @@ while opcion != 6:
     if opcion == 1:
         table_registro()
     elif opcion == 2:
-        pass
+        update_reporte = nuevo_reporte()
+        print(update_reporte)
     elif opcion == 3:
         totales_semana()
         dia_input = str(input("Escriba el día de la semana que requiera el promedio de ventas: "))
